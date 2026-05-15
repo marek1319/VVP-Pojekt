@@ -1,6 +1,7 @@
 ## Predikce daňové povinnosti malého podnikatele
 
 Autor: Marek Slavík
+
 Studenské čislo : SLA0395
 
 ## Textový popis
