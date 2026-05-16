@@ -18,3 +18,7 @@ Zapsat historická data a nalezenou predikci do grafického výstupu (obrázku),
 Vytvořit funkci pro generování testovacích finančních dat, aby bylo možné aplikaci spolehlivě testovat (tj. aby vygenerovala data za určité měsíce s realistickým rozložením).
 Funkce začne s nějakou šablonou (předdefinované v kódu) a poté bude generovat transakce s určitou mírou náhodnosti.
 Šablon bude více (např. stabilní příjmy – pravidelné měsíční fakturace, sezónní podnikání – výkyvy v určitých měsících, rostoucí trend – postupně se zvyšující zisky).
+
+## Rozcestník 
+
+Složka DATA -> Obsahuje csv soubry přijmu a vydaju 
