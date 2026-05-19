@@ -22,3 +22,4 @@ Funkce začne s nějakou šablonou (předdefinované v kódu) a poté bude gener
 ## Rozcestník 
 
 Složka DATA -> Obsahuje csv soubry přijmu a vydaju 
+Složka funkce -> Obsahuje classy a funkce použité v tomto projektu 

@@ -1,48 +1,61 @@
 import os
 from datetime import datetime
 import csv
-import numpy as np
 
-def nacti(soubor_nazev): 
-    vsechna_data = []
-    for nazev_souboru in os.listdir(soubor_nazev):
-        if nazev_souboru.endswith(".csv"):
-            cesta_k_souboru = os.path.join(soubor_nazev, nazev_souboru)
-            
-            prijmy_agregace = {}
-            vydaje_agregace = {}
-            odvody_agregace = {}
-            
-            with open(cesta_k_souboru, mode="r", encoding="utf-8") as file:
-                reader = csv.DictReader(file)
-                for row in reader:
-                    datum = datetime.strptime(row["Datum"], "%Y-%m-%d")
-                    mesic_klic = datum.strftime("%Y-%m") 
-                    castka = float(row["Castka"])
-                    
-                    if mesic_klic not in prijmy_agregace:
-                        prijmy_agregace[mesic_klic] = 0
-                        vydaje_agregace[mesic_klic] = 0
-                        odvody_agregace[mesic_klic] = 0
+class NacitaniDat:
+    """
+    Třída zajišťující hromadné načítání a zpracování finančních dat.
+    Prochází zadanou složku, čte CSV soubory a rozřazuje záznamy do měsíců 
+    jako seznamy jednotlivých transakcí (nesčítá je).
+    """
+    
+    def nacti(self, soubor_nazev): 
+        vsechna_data = []
+        # Procházení všech souborů v zadaném adresáři
+        for nazev_souboru in os.listdir(soubor_nazev):
+            # Filtrování pouze na soubory s příponou .csv
+            if nazev_souboru.endswith(".csv"):
+                cesta_k_souboru = os.path.join(soubor_nazev, nazev_souboru)
+                
+                # Inicializace slovníků pro ukládání seznamů transakcí za měsíc
+                prijmy_transakce = {}
+                vydaje_transakce = {}
+                odvody_transakce = {}
+                
+                # Otevření a čtení CSV souboru
+                with open(cesta_k_souboru, mode="r", encoding="utf-8") as file:
+                    reader = csv.DictReader(file)
+                    # Zpracování souboru řádek po řádku
+                    for row in reader:
+                        # Převod textového data na datetime objekt a vytvoření klíče "RRRR-MM"
+                        datum = datetime.strptime(row["Datum"], "%Y-%m-%d")
+                        mesic_klic = datum.strftime("%Y-%m") 
+                        # Získání finanční částky
+                        castka = float(row["Castka"])
+                        
+                        # Pokud měsíc ještě není ve slovnících, vytvoříme pro něj prázdný seznam
+                        if mesic_klic not in prijmy_transakce:
+                            prijmy_transakce[mesic_klic] = []
+                            vydaje_transakce[mesic_klic] = []
+                            odvody_transakce[mesic_klic] = []
+                      
+                        # Přidání částky do seznamu v příslušné kategorii podle typu transakce
+                        if row["Typ"] == "Prijem":
+                            prijmy_transakce[mesic_klic].append(castka)
+                        elif row["Typ"] == "Vydaj":
+                            vydaje_transakce[mesic_klic].append(castka)
+                        elif row["Typ"] == "Odvod":
+                            odvody_transakce[mesic_klic].append(castka)
 
-                    if row["Typ"] == "Prijem":
-                        prijmy_agregace[mesic_klic] += castka
-                    elif row["Typ"] == "Vydaj":
-                        vydaje_agregace[mesic_klic] += castka
-                    elif row["Typ"] == "Odvod":
-                        odvody_agregace[mesic_klic] += castka
-
-            mesicni_prijmy_pole = np.array(list(prijmy_agregace.values()))
-            mesicni_vydaje_pole = np.array(list(vydaje_agregace.values()))
-            mesicni_odvody_pole = np.array(list(odvody_agregace.values()))
-            
-            data_firmy = {
-                "nazev": nazev_souboru,
-                "prijmy": mesicni_prijmy_pole,
-                "vydaje": mesicni_vydaje_pole,
-                "odvody": mesicni_odvody_pole
-            }
-            
-            vsechna_data.append(data_firmy)
-
-    return vsechna_data
+                # Zabalení dat aktuální firmy/subjektu do jednoho slovníku
+                data_firmy = {
+                    "nazev": nazev_souboru,
+                    "prijmy": prijmy_transakce,
+                    "vydaje": vydaje_transakce,
+                    "odvody": odvody_transakce
+                }
+                # Přidání zpracovaných dat subjektu do celkového seznamu
+                vsechna_data.append(data_firmy)
+                
+        # Navrácení kompletních rozřazených dat pro všechny zpracované soubory
+        return vsechna_data
