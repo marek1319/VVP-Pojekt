@@ -9,27 +9,27 @@ class NacitaniDat:
     jako seznamy jednotlivých transakcí (nesčítá je).
     """
     
-    def nacti(self, soubor_nazev): 
-        vsechna_data = []
+    def nacti(self, soubor_nazev: str) -> list[dict]: 
+        vsechna_data: list[dict] = []
         # Procházení všech souborů v zadaném adresáři
         for nazev_souboru in os.listdir(soubor_nazev):
             # Filtrování pouze na soubory s příponou .csv
             if nazev_souboru.endswith(".csv"):
-                cesta_k_souboru = os.path.join(soubor_nazev, nazev_souboru)
+                cesta_k_souboru: str = os.path.join(soubor_nazev, nazev_souboru)
                 
                 # Inicializace slovníků pro ukládání seznamů transakcí za měsíc
-                prijmy_transakce = {}
-                vydaje_transakce = {}
-                odvody_transakce = {}
+                prijmy_transakce: dict[str, list[float]] = {}
+                vydaje_transakce: dict[str, list[float]] = {}
+                odvody_transakce: dict[str, list[float]] = {}
                 
                 # Otevření a čtení CSV souboru
                 with open(cesta_k_souboru, mode="r", encoding="utf-8") as file:
-                    reader = csv.DictReader(file)
+                    reader: csv.DictReader = csv.DictReader(file)
                     # Zpracování souboru řádek po řádku
                     for row in reader:
                         # Převod textového data na datetime objekt a vytvoření klíče "RRRR-MM"
-                        datum = datetime.strptime(row["Datum"], "%Y-%m-%d")
-                        mesic_klic = datum.strftime("%Y-%m") 
+                        datum: datetime = datetime.strptime(row["Datum"], "%Y-%m-%d")
+                        mesic_klic: str = datum.strftime("%Y-%m") 
                         # Získání finanční částky
                         castka = float(row["Castka"])
                         
