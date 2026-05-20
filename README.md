@@ -29,3 +29,4 @@ Složka funkce -> Obsahuje classy a funkce použité v tomto projektu
     4. ransac_robust.py -> Tento soubor ma za uřel pomocí robustní regrese udělat odhad pohybu cen (zde využívám ransac)
     5. soucet_jednotlivych_mesicu.py -> Tento soubor ma za učel sečíst jednotlivé častky v měsících tak aby jsme s nima mohly pracovat 
     6. vypocty.py -> Tento soubor ma za učel vypočitat daň za jednotlivé měsíce 
+examples.ipynb -> Tento soubor ma za učel propojit jednotlivé  funkce a zobrazit vystupy 
