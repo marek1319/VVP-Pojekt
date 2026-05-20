@@ -23,3 +23,9 @@ Funkce začne s nějakou šablonou (předdefinované v kódu) a poté bude gener
 
 Složka DATA -> Obsahuje csv soubry přijmu a vydaju 
 Složka funkce -> Obsahuje classy a funkce použité v tomto projektu 
+    1. generator_nahodnych_dat.py -> Tento soubor má za učel vytvařet jiné soubory na predikci dat, nově vytvořené soubory se ukladají do složky data 
+    2. nacitanisouboru.py -> Tento soubor má za učel rozebrat testovací data ze složky data do slovníku aby se s tím dále dalo pracovat 
+    3. predikce_prijmu_a_vydaju.py -> Tento soubor ma za učel pomocí linearní regrese predikci dat 
+    4. ransac_robust.py -> Tento soubor ma za uřel pomocí robustní regrese udělat odhad pohybu cen (zde využívám ransac)
+    5. soucet_jednotlivych_mesicu.py -> Tento soubor ma za učel sečíst jednotlivé častky v měsících tak aby jsme s nima mohly pracovat 
+    6. vypocty.py -> Tento soubor ma za učel vypočitat daň za jednotlivé měsíce 
