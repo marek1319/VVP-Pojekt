@@ -51,14 +51,18 @@ Linearní regresy jsem využil protože za mě je to asi ten nejlepší zpusob k
 ### Využití Robustní regrese 
 
 Něco k robustní regresy 
-1. Důvod využití 
+1. Důvod využití
+
 využívám ji protože jsem se chtěl podivat na předpověď cen v jednotlyvých měsicí a chtěl jsem pravě pracovat se všemy daty (ano mohl jsem na to využit linearni regresy nebo připadně zvolit polynomyalní) ale za mě robustní je docela elegantní pro tyhle ty data protože ignoruje výkyvy připadně chyby které vybočují uplně z mého data setu (to znamená že nedochází ke zkreslení ) 
 
-2. Ruzné druhy robustní regrese 
-Mamé více druhů robustní regrese konkretně 
+2. Ruzné druhy robustní regrese
+
+Mamé více druhů robustní regrese konkretně
+
 RANSAC — vezme dva nahodné body data setu a mezi nima uděla přimku a pak nasledně mení sklon na zakladě okolí dat s tím že ignoruje data která jsou mimo dané okolí 
 Huber — neodstraňuje outliers(neboli data která jsou bokem), ale zmenšuje jejich vliv. Blízké body trestá kvadraticky , vzdálené lineárně. Nejběžnější volba v běžné praxi (to jsem se aspoň dočetl).
 Theil-Sen — vezme medián sklonů všech možných dvojic bodů. Velmi odolný, ale pomalý na velkých datech.
 
-3. Proč jsem zvolil RANSAC 
+3. Proč jsem zvolil RANSAC
+
 protože jsem se k němu dostal jako k prvnímu a protože my přišel docela vhodný na moje konkretní data i když po bližším zjišťování jsem zjistil že by možná na moje malé datasety byl mnohem efektivnější Huber ale již ponechám Ransac
