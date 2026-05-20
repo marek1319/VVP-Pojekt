@@ -11,7 +11,7 @@ Na začátku bude implementována funkce pro načítání transakcí z CSV soubo
 
 Výstup bude formou grafického obrázku (vizualizace historie příjmů a výdajů s vyznačeným trendem predikce a odhadovanou výší daně).
 
-## Funcionality
+## Funkcionality
 Implementovat načítání finančních dat z CSV souboru (evidence příjmů, výdajů a základních mzdových odvodů).
 
 Implementovat algoritmus pro hledání trendu a predikci za použití zvoleného matematického modelu, který bude pracovat v následujících dvou krocích:
@@ -30,39 +30,42 @@ Funkce začne s nějakou šablonou (předdefinované v kódu) a poté bude gener
 
 ## Rozcestník 
 
-Složka DATA -> Obsahuje csv soubry přijmu a vydaju 
+Složka DATA -> Obsahuje CSV soubory příjmů a výdajů. 
 
-Složka funkce -> Obsahuje classy a funkce použité v tomto projektu 
+Složka funkce -> Obsahuje classy a funkce použité v tomto projektu.
 
-1. generator_nahodnych_dat.py -> Tento soubor má za učel vytvařet jiné soubory na predikci dat, nově vytvořené soubory se ukladají do složky data 
-2. nacitanisouboru.py -> Tento soubor má za učel rozebrat testovací data ze složky data do slovníku aby se s tím dále dalo pracovat 
-3. predikce_prijmu_a_vydaju.py -> Tento soubor ma za učel pomocí linearní regrese predikci dat 
-4. ransac_robust.py -> Tento soubor ma za uřel pomocí robustní regrese udělat odhad pohybu cen (zde využívám ransac)
-5. soucet_jednotlivych_mesicu.py -> Tento soubor ma za učel sečíst jednotlivé častky v měsících tak aby jsme s nima mohly pracovat 
-6. vypocty.py -> Tento soubor ma za učel vypočitat daň za jednotlivé měsíce 
+1. generator_nahodnych_dat.py -> Tento soubor má za účel vytvářet jiné soubory na predikci dat, nově vytvořené soubory se ukládají do složky DATA. 
+2. nacitanisouboru.py -> Tento soubor má za účel rozebrat testovací data ze složky DATA do slovníku, aby se s tím dále dalo pracovat. 
+3. predikce_prijmu_a_vydaju.py -> Tento soubor má za účel pomocí lineární regrese predikci dat.
+4. ransac_robust.py -> Tento soubor má za účel pomocí robustní regrese udělat odhad pohybu cen (zde využívám RANSAC).
+5. soucet_jednotlivych_mesicu.py -> Tento soubor má za účel sečíst jednotlivé částky v měsících, tak aby jsme s nimi mohli pracovat.
+6. vypocty.py -> Tento soubor má za účel vypočítat daň za jednotlivé měsíce.
 
-examples.ipynb -> Tento soubor ma za učel propojit jednotlivé  funkce a zobrazit vystupy 
+examples.ipynb -> Tento soubor má za účel propojit jednotlivé funkce a zobrazit výstupy.
 
 ## Zdůvodnění zvoleného způsobu 
-### Využití Linearní regrese 
+### Využití lineární regrese 
 
-Linearní regresy jsem využil protože za mě je to asi ten nejlepší zpusob když mame sumy dat za měsíc (to znamná max 12 bodů) které se daji lehce spojit a na zakladě toho odhadnout průběh 
+Lineární regresi jsem využil, protože za mě je to asi ten nejlepší způsob, když máme sumy dat za měsíc (to znamená max. 12 bodů), které se dají lehce spojit a na základě toho odhadnout průběh.
 
-### Využití Robustní regrese 
+### Využití robustní regrese
 
-Něco k robustní regresy 
+Něco k robustní regresi:
+
 1. Důvod využití
 
-využívám ji protože jsem se chtěl podivat na předpověď cen v jednotlyvých měsicí a chtěl jsem pravě pracovat se všemy daty (ano mohl jsem na to využit linearni regresy nebo připadně zvolit polynomyalní) ale za mě robustní je docela elegantní pro tyhle ty data protože ignoruje výkyvy připadně chyby které vybočují uplně z mého data setu (to znamená že nedochází ke zkreslení ) 
+Využívám ji, protože jsem se chtěl podívat na předpověď cen v jednotlivých měsících a chtěl jsem právě pracovat se všemi daty (ano, mohl jsem na to využít lineární regresi nebo případně zvolit polynomiální), ale za mě robustní je docela elegantní pro tyhle ty data, protože ignoruje výkyvy, případně chyby, které vybočují úplně z mého datasetu (to znamená, že nedochází ke zkreslení).
 
-2. Ruzné druhy robustní regrese
+2. Různé druhy robustní regrese
 
-Mamé více druhů robustní regrese konkretně
+Máme více druhů robustní regrese, konkrétně:
 
-RANSAC — vezme dva nahodné body data setu a mezi nima uděla přimku a pak nasledně mení sklon na zakladě okolí dat s tím že ignoruje data která jsou mimo dané okolí 
-Huber — neodstraňuje outliers(neboli data která jsou bokem), ale zmenšuje jejich vliv. Blízké body trestá kvadraticky , vzdálené lineárně. Nejběžnější volba v běžné praxi (to jsem se aspoň dočetl).
+RANSAC — vezme dva náhodné body datasetu a mezi nimi udělá přímku a pak následně mění sklon na základě okolí dat s tím, že ignoruje data, která jsou mimo dané okolí.
+
+Huber — neodstraňuje outliers (neboli data, která jsou bokem), ale zmenšuje jejich vliv. Blízké body trestá kvadraticky, vzdálené lineárně. Nejběžnější volba v běžné praxi (to jsem se aspoň dočetl).
+
 Theil-Sen — vezme medián sklonů všech možných dvojic bodů. Velmi odolný, ale pomalý na velkých datech.
 
 3. Proč jsem zvolil RANSAC
 
-protože jsem se k němu dostal jako k prvnímu a protože my přišel docela vhodný na moje konkretní data i když po bližším zjišťování jsem zjistil že by možná na moje malé datasety byl mnohem efektivnější Huber ale již ponechám Ransac
+Protože jsem se k němu dostal jako k prvnímu a protože mi přišel docela vhodný na moje konkrétní data, i když po bližším zjišťování jsem zjistil, že by možná na moje malé datasety byl mnohem efektivnější Huber, ale již ponechám RANSAC.
