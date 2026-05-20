@@ -1,5 +1,5 @@
 import numpy as np
-
+#Lineární regrese
 class Predikce:
     def predikuj_pole(self, pole_dat: np.ndarray) -> np.ndarray:
         """

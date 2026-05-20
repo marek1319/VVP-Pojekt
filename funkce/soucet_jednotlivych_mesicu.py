@@ -7,15 +7,15 @@ class soucet:
         for firma in vsechna_data:
             nazev: str = firma["nazev"]
             
-            # 1. Zjistíme, kolik měsíců budeme zpracovávat
+            # Zjistím, kolik měsíců budeme zpracovávat
             pocet_prijmu: int = len(firma["prijmy"])
             pocet_vydaju: int = len(firma["vydaje"])
             
-            # 2. Vytvoříme rovnou NumPy pole o přesné velikosti (plné nul)
+            # Vytvořím rovnou NumPy pole o přesné velikosti (plné nul)
             prijmy_soucty: np.ndarray = np.zeros(pocet_prijmu)
             vydaje_soucty: np.ndarray = np.zeros(pocet_vydaju)
             
-            # 3. Zápis částek rovnou na konkrétní index (odpadá append)
+            # Zápis částek rovnou na konkrétní index
             for index, transakce_v_mesici in enumerate(firma["prijmy"].values()):
                 prijmy_soucty[index] = np.sum(transakce_v_mesici)
                 
