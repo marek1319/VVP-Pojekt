@@ -16,9 +16,9 @@ Implementovat načítání finančních dat z CSV souboru (evidence příjmů, v
 
 Implementovat algoritmus pro hledání trendu a predikci za použití zvoleného matematického modelu, který bude pracovat v následujících dvou krocích:
 
-    Zpracování dat a výpočet aktuální daňové povinnosti (zjednodušený model dle platné legislativy).
+1. Zpracování dat a výpočet aktuální daňové povinnosti (zjednodušený model dle platné legislativy).
 
-    Odhad příjmů a výdajů do konce roku (např. pomocí lineární regrese) a následná simulace celkové roční daně.
+2. Odhad příjmů a výdajů do konce roku (např. pomocí lineární regrese) a následná simulace celkové roční daně.
 
 Zapsat historická data a nalezenou predikci do grafického výstupu (obrázku), kde historická data budou např. modře a predikovaná část a daňová zátěž bude vyznačena červeně.
 
@@ -34,16 +34,11 @@ Složka DATA -> Obsahuje csv soubry přijmu a vydaju
 
 Složka funkce -> Obsahuje classy a funkce použité v tomto projektu 
 
-    1. generator_nahodnych_dat.py -> Tento soubor má za učel vytvařet jiné soubory na predikci dat, nově vytvořené soubory se ukladají do složky data 
-
-    2. nacitanisouboru.py -> Tento soubor má za učel rozebrat testovací data ze složky data do slovníku aby se s tím dále dalo pracovat 
-
-    3. predikce_prijmu_a_vydaju.py -> Tento soubor ma za učel pomocí linearní regrese predikci dat 
-
-    4. ransac_robust.py -> Tento soubor ma za uřel pomocí robustní regrese udělat odhad pohybu cen (zde využívám ransac)
-
-    5. soucet_jednotlivych_mesicu.py -> Tento soubor ma za učel sečíst jednotlivé častky v měsících tak aby jsme s nima mohly pracovat 
-
-    6. vypocty.py -> Tento soubor ma za učel vypočitat daň za jednotlivé měsíce 
+1. generator_nahodnych_dat.py -> Tento soubor má za učel vytvařet jiné soubory na predikci dat, nově vytvořené soubory se ukladají do složky data 
+2. nacitanisouboru.py -> Tento soubor má za učel rozebrat testovací data ze složky data do slovníku aby se s tím dále dalo pracovat 
+3. predikce_prijmu_a_vydaju.py -> Tento soubor ma za učel pomocí linearní regrese predikci dat 
+4. ransac_robust.py -> Tento soubor ma za uřel pomocí robustní regrese udělat odhad pohybu cen (zde využívám ransac)
+5. soucet_jednotlivych_mesicu.py -> Tento soubor ma za učel sečíst jednotlivé častky v měsících tak aby jsme s nima mohly pracovat 
+6. vypocty.py -> Tento soubor ma za učel vypočitat daň za jednotlivé měsíce 
 
 examples.ipynb -> Tento soubor ma za učel propojit jednotlivé  funkce a zobrazit vystupy 
